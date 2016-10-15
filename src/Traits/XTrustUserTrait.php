@@ -1,4 +1,4 @@
-<?php namespace App\Libraries\XTrust;
+<?php namespace XdroidTeam\XTrust\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;

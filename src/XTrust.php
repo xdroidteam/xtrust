@@ -1,4 +1,4 @@
-<?php namespace App\Libraries\XTrust;
+<?php namespace XdroidTeam\XTrust;
 
 use Auth;
 
