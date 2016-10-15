@@ -1,0 +1,19 @@
+{
+    "name": "xdroidteam/xtrust",
+    "description": "Role and permission based rights for laravel",
+    "license": "MIT",
+    "keywords": ["laravel", "rights", "role", "permimssion"],
+    "authors": [
+        {
+            "name": "Xdroid KFT.",
+            "email": "info@xdroid.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "XdroidTeam\\XTrust\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
