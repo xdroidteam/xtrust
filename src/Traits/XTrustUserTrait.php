@@ -75,24 +75,6 @@ trait XTrustUserTrait
         Cache::tags('users_permissions_roles_cache')->forget($this->getCacheKey());
     }
 
-    public function save(array $options = []){
-        $result = parent::save($options);
-        $this->clearCache();
-        return $result;
-    }
-
-    public function delete(array $options = []){
-        $result = parent::delete($options);
-        $this->clearCache();
-        return $result;
-    }
-
-    public function restore(){
-        $result = parent::restore();
-        $this->clearCache();
-        return $result;
-    }
-
     public function hasPermission($perm){
         return (in_array($perm, $this->getPermissions()));
     }
