@@ -31,8 +31,7 @@ class XTrustServiceProvider extends ServiceProvider
         });
 
         \Blade::directive('permissions', function($expression) {
-            $perms = explode('|', $expression);
-            return "<?php if (\\XTrust::hasPermissions{$perms}) : ?>";
+            return "<?php if (\\XTrust::hasPermissions{$expression}) : ?>";
         });
 
         \Blade::directive('endpermissions', function($expression) {
