@@ -73,6 +73,7 @@ trait XTrustUserTrait
 
     public function clearCache(){
         Cache::tags('users_permissions_roles_cache')->forget($this->getCacheKey());
+        $this->rolesPermissions = false;
     }
 
     public function hasPermission($perm){
