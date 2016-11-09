@@ -88,6 +88,18 @@ trait XTrustUserTrait
         return true;
     }
 
+    public function hasRole($role){
+        return (in_array($role, $this->getRoles()));
+    }
+
+    public function hasRoles($roles){
+        foreach ($roles as $key => $role) {
+            if (!$this->hasRole($role))
+                return false;
+        }
+        return true;
+    }
+
     public function attachRole($roleID){
         if (array_key_exists($roleID, $this->getRoles()))
             return;

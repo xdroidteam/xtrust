@@ -16,4 +16,18 @@ class XTrust {
 
         return Auth::user()->hasPermissions($perms);
     }
+
+    public static function hasRole($role){
+        if (Auth::guest())
+            return false;
+
+        return Auth::user()->hasRole($role);
+    }
+
+    public static function hasRoles($roles){
+        if (Auth::guest())
+            return false;
+
+        return Auth::user()->hasRoles($roles);
+    }
 }
