@@ -23,6 +23,5 @@ class XTrustPermissionMiddleware
 		}
 
 		return response('Permission denied.', 403);
-		
 	}
 }
