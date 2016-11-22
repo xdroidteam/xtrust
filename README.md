@@ -187,12 +187,25 @@ Route::group(['middleware' => ['auth', 'permission:can_show']], function(){
     Route::get('/', 'HomeController@index');
 });
 ```
-Or for multiple permission check:
+For multiple permission check use pipe symbol as OR operator:
 ```php
 Route::group([
 	'middleware' => [
     	'auth',
         'permission:can_show|can_create|can_edit|can_delete'
+    ]
+], function(){
+    Route::get('/admin', 'AdminController@index');
+});
+```
+To emulate AND functionality just use multiple instances of middleware
+For multiple permission check use pipe symbol as OR operator:
+```php
+Route::group([
+	'middleware' => [
+    	'auth',
+        'permission:can_show',
+        'permission:can_create'
     ]
 ], function(){
     Route::get('/admin', 'AdminController@index');

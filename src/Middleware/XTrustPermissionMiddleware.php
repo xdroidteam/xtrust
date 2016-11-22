@@ -14,10 +14,15 @@ class XTrustPermissionMiddleware
 
 	public function handle($request, Closure $next, $permissions)
 	{
-		if ($this->auth->guest() || !$request->user()->hasPermissions(explode('|', $permissions))) {
+		if ($this->auth->guest())
             return response('Permission denied.', 403);
+
+		foreach (explode('|', $permissions) as $permission) {
+			if ($request->user()->hasPermission($permission))
+				return $next($request);
 		}
 
-		return $next($request);
+		return response('Permission denied.', 403);
+		
 	}
 }
