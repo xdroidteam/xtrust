@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Cache;
 use InvalidArgumentException;
+use XdroidTeam\XTrust\Models\XTrustPermission;
 
 trait XTrustRoleTrait
 {
@@ -40,7 +41,7 @@ trait XTrustRoleTrait
             if (is_null($data))
                 $data = [];
 
-            $permissionIDs = Permission::lists('id')->all();
+            $permissionIDs = XTrustPermission::lists('id')->all();
 
             foreach ($permissionIDs as $permissionID) {
                 if (array_key_exists($permissionID, $data))
