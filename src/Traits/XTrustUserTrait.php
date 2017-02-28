@@ -80,6 +80,14 @@ trait XTrustUserTrait
         return (in_array($perm, $this->getPermissions()));
     }
 
+    public function hasOneOfPermissions($perms){
+        foreach ($perms as $key => $perm) {
+            if ($this->hasPermission($perm))
+                return true;
+        }
+        return false;
+    }
+
     public function hasPermissions($perms){
         foreach ($perms as $key => $perm) {
             if (!$this->hasPermission($perm))
@@ -90,6 +98,14 @@ trait XTrustUserTrait
 
     public function hasRole($role){
         return (in_array($role, $this->getRoles()));
+    }
+
+    public function hasOneOfRoles($roles){
+        foreach ($roles as $key => $role) {
+            if ($this->hasRole($role))
+                return true;
+        }
+        return false;
     }
 
     public function hasRoles($roles){

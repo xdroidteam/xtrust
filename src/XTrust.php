@@ -10,6 +10,13 @@ class XTrust {
         return Auth::user()->hasPermission($perm);
     }
 
+    public static function hasOneOfPermissions($perms){
+        if (Auth::guest())
+            return false;
+
+        return Auth::user()->hasOneOfPermissions($perms);
+    }
+
     public static function hasPermissions($perms){
         if (Auth::guest())
             return false;
@@ -22,6 +29,13 @@ class XTrust {
             return false;
 
         return Auth::user()->hasRole($role);
+    }
+
+    public static function hasOneOfRoles($roles){
+        if (Auth::guest())
+            return false;
+
+        return Auth::user()->hasOneOfRoles($roles);
     }
 
     public static function hasRoles($roles){

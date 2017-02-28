@@ -38,6 +38,15 @@ class XTrustServiceProvider extends ServiceProvider
             return "<?php endif; // XTrust::hasPermissions ?>";
         });
 
+
+        \Blade::directive('oneofpermissions', function($expression) {
+            return "<?php if (\\XTrust::hasOneOfPermissions{$expression}) : ?>";
+        });
+
+        \Blade::directive('endoneofpermissions', function($expression) {
+            return "<?php endif; // XTrust::hasOneOfPermissions ?>";
+        });
+
     }
 
 }
