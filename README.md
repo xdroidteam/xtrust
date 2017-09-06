@@ -15,6 +15,8 @@
     - [Simple checking](#simple-checking)
     - [Middleware](#middleware)
     - [Blade](#blade)
+  - [Role checking](#permission-checking)
+    - [Simple checking](#simple-checking)
   - [Attaching, detaching](#attaching-detaching)
     - [Attach to a user](#attach-to-a-user)
     - [Detach from a user](#detacg-from-a-user)
@@ -36,9 +38,9 @@ Add the following line to your **composer.json**:
 Then run `composer update`.
 
 or you can run the `composer require` command from your terminal:
-    
+
     composer require xdroidteam/xtrust
-    
+
 Then in your `config/app.php` add to the `providers` array:
 ```php
 XdroidTeam\XTrust\XTrustServiceProvider::class,
@@ -142,7 +144,7 @@ You have two roles, with permissions:
   4. can_delete
 2. user:
   1. can_show
-  
+
 You have two users, with roles:
 1. Adam Admin:
   1. admin
@@ -150,7 +152,7 @@ You have two users, with roles:
   1. user
 
 If you don't want Adam Admin, to be able to delete, you can simply detach the can_delete permission from him. The admin group can still have the can_delete permission, but Adam will not.
-If you want Super User to be able to edit, you can attach this permisson (can_edit) to her. The other users in the user role will still be unable to edit, except her. 
+If you want Super User to be able to edit, you can attach this permisson (can_edit) to her. The other users in the user role will still be unable to edit, except her.
 
 Because of this logic, **you can't check the user roles, only the permissions!**
 
@@ -172,6 +174,11 @@ XTrust::hasPermissions(['can_delete', 'can_edit']);
 ```
 Returns true, if the authanticated user has all the permissions, returns false if not.
 
+Or:
+```php
+XTrust::hasOneOfPermissions(['can_delete', 'can_edit']);
+```
+Returns true, if the authanticated user has one of the permissions, returns false if not.
 
 You can also check within the user model:
 ```php
@@ -179,6 +186,8 @@ $user = User::find(1);
 $user->hasPermission('can_delete');
 // OR
 $user->hasPermissions(['can_delete', 'can_edit']);
+// OR
+$user->hasOneOfPermissions(['can_delete', 'can_edit']);
 ```
 
 #### Middleware
@@ -226,9 +235,47 @@ Route::group([
 ```
 Multiple permissions:
 ```php
-@permissions('can_show|can_delete')
+@permissions(['can_show', 'can_delete'])
 	<span>Something</span>
 @endpermissions
+```
+Returns true, if the authanticated user has all the permissions, returns false if not.
+
+Or:
+```php
+@oneofpermissions(['can_show', 'can_delete'])
+	<span>Something</span>
+@endoneofpermissions
+```
+Returns true, if the authanticated user has one of the permissions, returns false if not.
+### Role checking
+#### Simple checking
+Check one role:
+```php
+XTrust::hasRole('can_delete');
+```
+Returns true, if the authanticated user has the role, returns false if not.
+
+Check multiple roles:
+```php
+XTrust::hasRoles(['can_delete', 'can_edit']);
+```
+Returns true, if the authanticated user has all the roles, returns false if not.
+
+Or:
+```php
+XTrust::hasOneOfRoles(['can_delete', 'can_edit']);
+```
+Returns true, if the authanticated user has one of the roles, returns false if not.
+
+You can also check within the user model:
+```php
+$user = User::find(1);
+$user->hasRole('can_delete');
+// OR
+$user->hasRoles(['can_delete', 'can_edit']);
+// OR
+$user->hasOneOfRoles(['can_delete', 'can_edit']);
 ```
 
 ### Attaching detaching
