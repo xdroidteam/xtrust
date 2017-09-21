@@ -31,9 +31,13 @@
 
 ## Installation
 
-Add the following line to your **composer.json**:
+Add the following line to your **composer.json** (Laravel 5.4 and below):
 
     "xdroidteam/xtrust": "0.1.*"
+
+Add the following line to your **composer.json** (Laravel 5.5):
+
+    "xdroidteam/xtrust": "0.2.*"
 
 Then run `composer update`.
 
