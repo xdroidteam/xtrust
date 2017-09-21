@@ -23,20 +23,21 @@ class XTrustServiceProvider extends ServiceProvider
     private function bladeDirectives()
     {
             // Laravel 5.5 compatibility
-            // \Blade::if('permission', function($expression) {
-            //     return XTrust::hasPermission($expression);
-            // });
-            //
-            // \Blade::if('permissions', function($expression) {
-            //     return XTrust::hasPermissions($expression);
-            // });
-            //
-            // \Blade::if('oneofpermissions', function($expression) {
-            //     return XTrust::hasOneOfPermissions($expression);
-            // });
+            \Blade::if('permission', function($expression) {
+                return XTrust::hasPermission($expression);
+            });
+
+            \Blade::if('permissions', function($expression) {
+                return XTrust::hasPermissions($expression);
+            });
+
+            \Blade::if('oneofpermissions', function($expression) {
+                return XTrust::hasOneOfPermissions($expression);
+            });
 
 
             // Laravel 5.5> compatibility
+            /*
             \Blade::directive('permission', function($expression) {
                 return "<?php if (\\XTrust::hasPermission{$expression}) : ?>";
             });
@@ -61,6 +62,7 @@ class XTrustServiceProvider extends ServiceProvider
             \Blade::directive('endoneofpermissions', function($expression) {
                 return "<?php endif; // XTrust::hasOneOfPermissions ?>";
             });
+            */
 
     }
 
