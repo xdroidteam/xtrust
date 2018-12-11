@@ -180,12 +180,12 @@ trait XTrustUserTrait
 
     public function attachPermissions($permIDs){
         foreach ($permIDs as $key => $permID)
-            $this->attachRole($permID);
+            $this->attachPermission($permID);
     }
 
     public function detachPermissions($permIDs){
         foreach ($permIDs as $key => $permID)
-            $this->detachRole($permID);
+            $this->detachPermission($permID);
     }
 
     public static function boot()
