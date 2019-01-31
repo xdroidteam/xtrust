@@ -84,7 +84,7 @@ Create a Role model inside `app/models/Role.php` using the following example:
 ```php
 <?php namespace App\Models;
 
-use XDroidTeam\XTrust\Models\XTrustRole;
+use XdroidTeam\XTrust\Models\XTrustRole;
 
 class Role extends XTrustRole
 {
@@ -100,7 +100,7 @@ Create a Permission model inside `app/models/Permission.php` using the following
 ```php
 <?php namespace App\Models;
 
-use XDroidTeam\XTrust\Models\XTrustPermission;
+use XdroidTeam\XTrust\Models\XTrustPermission;
 
 class Permission extends XTrustPermission
 {
