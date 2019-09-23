@@ -16,6 +16,6 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "cviebrock/eloquent-sluggable": "^4.0"
+        "cviebrock/eloquent-sluggable": "^6.0"
     }
 }
