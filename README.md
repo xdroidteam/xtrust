@@ -45,11 +45,11 @@ or you can run the `composer require` command from your terminal:
 
     composer require xdroidteam/xtrust
 
-Then in your `config/app.php` add to the `providers` array:
+Then in your `config/app.php` add to the `providers` array (not needed after Laravel 5.5):
 ```php
 XdroidTeam\XTrust\XTrustServiceProvider::class,
 ```
-and to `aliases` array:
+and to `aliases` array (not needed after Laravel 5.5):
 ```php
 'XTrust' => XdroidTeam\XTrust\XTrust::class,
 ```
