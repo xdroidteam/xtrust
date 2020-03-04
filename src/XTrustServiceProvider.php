@@ -1,6 +1,7 @@
 <?php namespace XdroidTeam\XTrust;
 
 use Illuminate\Support\ServiceProvider;
+use XdroidTeam\XTrust\Middleware\XTrustPermissionMiddleware;
 
 class XTrustServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,8 @@ class XTrustServiceProvider extends ServiceProvider
             });
 
 
+            // Add route middleware
+            $this->app['router']->pushMiddlewareToGroup('web', XTrustPermissionMiddleware::class);
             // Laravel 5.5> compatibility
             /*
             \Blade::directive('permission', function($expression) {
