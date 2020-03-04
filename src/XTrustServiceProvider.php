@@ -18,7 +18,8 @@ class XTrustServiceProvider extends ServiceProvider
 
     public function register()
     {
-        //
+        // Add route middleware
+        $this->app['router']->aliasMiddleware('permission', XTrustPermissionMiddleware::class);
     }
 
     private function bladeDirectives()
@@ -36,9 +37,6 @@ class XTrustServiceProvider extends ServiceProvider
                 return XTrust::hasOneOfPermissions($expression);
             });
 
-
-            // Add route middleware
-            $this->app['router']->aliasMiddleware('permission', XTrustPermissionMiddleware::class);
             // Laravel 5.5> compatibility
             /*
             \Blade::directive('permission', function($expression) {
