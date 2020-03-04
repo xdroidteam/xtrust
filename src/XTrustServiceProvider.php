@@ -38,7 +38,7 @@ class XTrustServiceProvider extends ServiceProvider
 
 
             // Add route middleware
-            $this->app['router']->pushMiddlewareToGroup('web', XTrustPermissionMiddleware::class);
+            $this->app['router']->aliasMiddleware('permission', XTrustPermissionMiddleware::class);
             // Laravel 5.5> compatibility
             /*
             \Blade::directive('permission', function($expression) {
