@@ -17,5 +17,15 @@
     "minimum-stability": "dev",
     "require": {
         "cviebrock/eloquent-sluggable": "^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "XdroidTeam\\XTrust\\XTrustServiceProvider"
+            ],
+            "aliases": {
+                "XTrust": "XDroidTeam\\XTrust\\XTrust"
+            }
+        }
     }
 }
