@@ -24,7 +24,7 @@
                 "XdroidTeam\\XTrust\\XTrustServiceProvider"
             ],
             "aliases": {
-                "XTrust": "XDroidTeam\\XTrust\\XTrust"
+                "XTrust": "XdroidTeam\\XTrust\\XTrust"
             }
         }
     }
