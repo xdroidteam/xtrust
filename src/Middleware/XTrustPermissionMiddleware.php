@@ -17,11 +17,17 @@ class XTrustPermissionMiddleware
 		if ($this->auth->guest())
             abort(403);
 
+        $user = $this->getUser($request);
+
 		foreach (explode('|', $permissions) as $permission) {
-			if ($request->user()->hasPermission($permission))
+			if ($user->hasPermission($permission))
 				return $next($request);
 		}
 
         abort(403);
-	}
+    }
+
+    public static function getUser($request) {
+        return $request->user();
+    }
 }

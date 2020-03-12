@@ -1,7 +1,7 @@
 <?php namespace XdroidTeam\XTrust;
 
 use Illuminate\Support\ServiceProvider;
-use XdroidTeam\XTrust\Middleware\XTrustPermissionMiddleware;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class XTrustServiceProvider extends ServiceProvider
 {
@@ -14,57 +14,36 @@ class XTrustServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../database/migrations' => base_path('database/migrations'),
         ], 'xdroidteam-xtrust');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations' => base_path('database/migrations'),
+            __DIR__.'/../config/xdroidteam-xtrust.php' => config_path('xdroidteam-xtrust.php'),
+
+        ], 'xdroidteam-xtrust');
     }
 
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/xdroidteam-xtrust.php', 'xdroidteam-xtrust'
+        );
+
         // Add route middleware
-        $this->app['router']->aliasMiddleware('permission', XTrustPermissionMiddleware::class);
+        $this->app['router']->aliasMiddleware('permission', config('xdroidteam-xtrust.route_middleware'));
     }
 
     private function bladeDirectives()
     {
-            // Laravel 5.5 compatibility
-            \Blade::if('permission', function($expression) {
-                return XTrust::hasPermission($expression);
-            });
+        \Blade::if('permission', function($expression, Authenticatable $user = null) {
+            return XTrust::hasPermission($expression, $user);
+        });
 
-            \Blade::if('permissions', function($expression) {
-                return XTrust::hasPermissions($expression);
-            });
+        \Blade::if('permissions', function($expression, Authenticatable $user = null) {
+            return XTrust::hasPermissions($expression, $user);
+        });
 
-            \Blade::if('oneofpermissions', function($expression) {
-                return XTrust::hasOneOfPermissions($expression);
-            });
-
-            // Laravel 5.5> compatibility
-            /*
-            \Blade::directive('permission', function($expression) {
-                return "<?php if (\\XTrust::hasPermission{$expression}) : ?>";
-            });
-
-            \Blade::directive('endpermission', function($expression) {
-                return "<?php endif; // XTrust::hasPermission ?>";
-            });
-
-            \Blade::directive('permissions', function($expression) {
-                return "<?php if (\\XTrust::hasPermissions{$expression}) : ?>";
-            });
-
-            \Blade::directive('endpermissions', function($expression) {
-                return "<?php endif; // XTrust::hasPermissions ?>";
-            });
-
-
-            \Blade::directive('oneofpermissions', function($expression) {
-                return "<?php if (\\XTrust::hasOneOfPermissions{$expression}) : ?>";
-            });
-
-            \Blade::directive('endoneofpermissions', function($expression) {
-                return "<?php endif; // XTrust::hasOneOfPermissions ?>";
-            });
-            */
-
+        \Blade::if('oneofpermissions', function($expression, Authenticatable $user = null) {
+            return XTrust::hasOneOfPermissions($expression, $user);
+        });
     }
-
 }

@@ -12,7 +12,7 @@ trait XTrustUserTrait
         if ($this->rolesPermissions)
             return $this->rolesPermissions;
 
-        return $this->rolesPermissions = Cache::tags('users_permissions_roles_cache')->remember($this->getCacheKey(), env('CACHE_REMEMBER_TIME', 30), function () {
+        return $this->rolesPermissions = Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->remember($this->getCacheKey(), env('CACHE_TIME', 30), function () {
             $rolesPermissions = ['permissions' => [], 'roles' => [], 'role_permissions' => [], 'user_permissions' => []];
 
             foreach ($this->getPermissionsQuery()->get() as $key => $permission) {
@@ -72,7 +72,7 @@ trait XTrustUserTrait
     }
 
     public function clearCache(){
-        Cache::tags('users_permissions_roles_cache')->forget($this->getCacheKey());
+        Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->forget($this->getCacheKey());
         $this->rolesPermissions = false;
     }
 
