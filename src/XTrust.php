@@ -5,11 +5,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class XTrust {
     public static function getUser(Authenticatable $user = null) {
-        if($user) {
-            return config('auth.providers.users.model')::findOrFail($user);
-        } else {
-            return Auth::user();
-        }
+        return $user ?: Auth::user();
     }
 
     public static function hasPermission($perm, Authenticatable $user = null){
