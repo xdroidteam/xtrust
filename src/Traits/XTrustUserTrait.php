@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 trait XTrustUserTrait
 {
@@ -43,7 +44,7 @@ trait XTrustUserTrait
     }
 
     public function getPermissionsQuery(){
-        return self::where('users.id', '=', $this->id)
+        $query = self::where('users.id', '=', $this->id)
                             ->leftJoin('role_permission_user', 'role_permission_user.user_id', '=', 'users.id')
                             ->leftJoin('roles', 'roles.id', '=', 'role_permission_user.role_id')
                             ->leftJoin('permission_role', 'role_permission_user.role_id', '=', 'permission_role.role_id')
@@ -53,6 +54,12 @@ trait XTrustUserTrait
                                         'role_permission_user.role_id', 'permissions.name AS user_permission_name',
                                         'role_permission.name AS role_permission_name', 'permission_role.permission_id AS role_permission_id',
                                         'roles.name AS role_name');
+
+        if($this->useSoftDeleting()){
+            $query->withTrashed();
+        }
+
+        return $query;
     }
 
     public function getRoles(){
@@ -217,4 +224,8 @@ trait XTrustUserTrait
         return 'xtrust_permissions_for_user_'.$this->$userPrimaryKey;
     }
 
+    public function useSoftDeleting()
+    {
+        return in_array(SoftDeletes::class, class_uses($this)) && !$this->forceDeleting;
+    }
 }
