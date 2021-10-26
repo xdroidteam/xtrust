@@ -178,7 +178,7 @@ trait XTrustUserTrait
             $this->permissions()->updateExistingPivot($permID, ['enabled' => false]);
         elseif (!array_key_exists($permID, $rolePermissions) && array_key_exists($permID, $userPermissions))
             $this->permissions()->detach($permID);
-        else
+        elseif (array_key_exists($permID, $rolePermissions) && !array_key_exists($permID, $userPermissions))
             $this->permissions()->attach($permID, ['enabled' => false]);
 
         $this->clearCache();
