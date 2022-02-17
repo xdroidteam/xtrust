@@ -16,7 +16,7 @@ class AddCustomDataToRoleAndPermissionTables extends Migration
             $table->json('custom_data')->after('description')->nullable();
         });
 
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::table('permissions', function (Blueprint $table) {
             $table->json('custom_data')->after('description')->nullable();
         });
     }
