@@ -10,5 +10,8 @@ class XTrustPermission extends Model
     protected $table = 'permissions';
     protected $guarded = [];
 
+    protected $casts = [
+        'custom_data' => 'array',
+    ];
 
 }

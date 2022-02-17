@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use InvalidArgumentException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 trait XTrustUserTrait
@@ -13,7 +12,7 @@ trait XTrustUserTrait
         if ($this->rolesPermissions)
             return $this->rolesPermissions;
 
-        return $this->rolesPermissions = Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->remember($this->getCacheKey(), env('CACHE_TIME', 30), function () {
+        return $this->rolesPermissions = Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->remember($this->getCacheKey(), config('cache.cache_time', env('CACHE_TIME', 30)), function () {
             $rolesPermissions = ['permissions' => [], 'roles' => [], 'role_permissions' => [], 'user_permissions' => []];
 
             foreach ($this->getPermissionsQuery()->get() as $key => $permission) {
@@ -53,7 +52,7 @@ trait XTrustUserTrait
                             ->select(   'role_permission_user.enabled', 'role_permission_user.permission_id AS user_permission_id',
                                         'role_permission_user.role_id', 'permissions.name AS user_permission_name',
                                         'role_permission.name AS role_permission_name', 'permission_role.permission_id AS role_permission_id',
-                                        'roles.name AS role_name');
+                                        'roles.name AS role_name', 'roles.custom_data as role_custom_data', 'permissions.custom_data as permission_custom_data');
 
         if($this->useSoftDeleting()){
             $query->withTrashed();

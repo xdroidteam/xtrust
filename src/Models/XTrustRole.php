@@ -11,6 +11,10 @@ class XTrustRole extends Model
 
     protected $table = 'roles';
     protected $guarded = [];
+    
+    protected $casts = [
+        'custom_data' => 'array',
+    ];
 
     public function sluggable()
     {
