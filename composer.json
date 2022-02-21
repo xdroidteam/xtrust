@@ -16,9 +16,9 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "cviebrock/eloquent-sluggable": "^6.0|^7.0|^8.0",
-        "illuminate/auth": "^6.0|^7.0|^8.0",
-        "illuminate/support": "^6.0|^7.0|^8.0"
+        "cviebrock/eloquent-sluggable": "^9.0",
+        "illuminate/auth": "^9.0",
+        "illuminate/support": "^9.0"
     },
     "extra": {
         "laravel": {

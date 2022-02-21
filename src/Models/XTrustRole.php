@@ -16,7 +16,7 @@ class XTrustRole extends Model
         'custom_data' => 'array',
     ];
 
-    public function sluggable()
+    public function sluggable() : array
     {
         return [
             'name' => [
