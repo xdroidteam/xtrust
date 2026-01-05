@@ -34,15 +34,15 @@ class XTrustServiceProvider extends ServiceProvider
 
     private function bladeDirectives()
     {
-        \Blade::if('permission', function($expression, Authenticatable $user = null) {
+        \Blade::if('permission', function($expression, ?Authenticatable $user = null) {
             return XTrust::hasPermission($expression, $user);
         });
 
-        \Blade::if('permissions', function($expression, Authenticatable $user = null) {
+        \Blade::if('permissions', function($expression, ?Authenticatable $user = null) {
             return XTrust::hasPermissions($expression, $user);
         });
 
-        \Blade::if('oneofpermissions', function($expression, Authenticatable $user = null) {
+        \Blade::if('oneofpermissions', function($expression, ?Authenticatable $user = null) {
             return XTrust::hasOneOfPermissions($expression, $user);
         });
     }
