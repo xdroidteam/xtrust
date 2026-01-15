@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Cache;
 use InvalidArgumentException;
 use XdroidTeam\XTrust\Models\XTrustPermission;
+use XdroidTeam\XTrust\XTrust;
 
 trait XTrustRoleTrait
 {
@@ -10,12 +11,16 @@ trait XTrustRoleTrait
         if(array_key_exists($permID, $this->getPermissions()))
             return;
         $this->permissions()->attach($permID);
+        
+        Cache::tags(XTrust::getCacheTag())->flush();
     }
 
     public function detachPermission($permID){
         if(!array_key_exists($permID, $this->getPermissions()))
             return;
         $this->permissions()->detach($permID);
+
+        Cache::tags(XTrust::getCacheTag())->flush();
     }
 
     public function attachPermissions($permIDs){
@@ -53,19 +58,19 @@ trait XTrustRoleTrait
 
     public function save(array $options = []){
         $result = parent::save($options);
-        Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->flush();
+        Cache::tags(XTrust::getCacheTag())->flush();
         return $result;
     }
 
     public function delete(array $options = []){
         $result = parent::delete($options);
-        Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->flush();
+        Cache::tags(XTrust::getCacheTag())->flush();
         return $result;
     }
 
     public function restore(){
         $result = parent::restore();
-        Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->flush();
+        Cache::tags(XTrust::getCacheTag())->flush();
         return $result;
     }
 

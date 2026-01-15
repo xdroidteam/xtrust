@@ -4,6 +4,10 @@ use Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class XTrust {
+    public static function getCacheTag() {
+        return config('xdroidteam-xtrust.cache_tag') ?: 'users_permissions_roles_cache';
+    }
+
     public static function getUser(Authenticatable $user = null) {
         return $user ?: Auth::user();
     }
