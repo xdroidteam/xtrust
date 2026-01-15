@@ -1,6 +1,7 @@
 <?php namespace XdroidTeam\XTrust\Traits;
 
 use Illuminate\Support\Facades\Cache;
+use XdroidTeam\XTrust\XTrust;
 
 trait XTrustPermissionTrait
 {
@@ -14,19 +15,19 @@ trait XTrustPermissionTrait
 
     public function save(array $options = []){
         $result = parent::save($options);
-        Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->flush();
+        Cache::tags(XTrust::getCacheTag())->flush();
         return $result;
     }
 
     public function delete(array $options = []){
         $result = parent::delete($options);
-        Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->flush();
+        Cache::tags(XTrust::getCacheTag())->flush();
         return $result;
     }
 
     public function restore(){
         $result = parent::restore();
-        Cache::tags(env('APP_KEY'), 'users_permissions_roles_cache')->flush();
+        Cache::tags(XTrust::getCacheTag())->flush();
         return $result;
     }
 
