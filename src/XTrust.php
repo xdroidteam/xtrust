@@ -8,46 +8,46 @@ class XTrust {
         return config('xdroidteam-xtrust.cache_tag') ?: 'users_permissions_roles_cache';
     }
 
-    public static function getUser(Authenticatable $user = null) {
+    public static function getUser(?Authenticatable $user = null) {
         return $user ?: Auth::user();
     }
 
-    public static function hasPermission($perm, Authenticatable $user = null){
+    public static function hasPermission($perm, ?Authenticatable $user = null){
         if (Auth::guest())
             return false;
 
         return static::getUser($user)->hasPermission($perm);
     }
 
-    public static function hasOneOfPermissions($perms, Authenticatable $user = null){
+    public static function hasOneOfPermissions($perms, ?Authenticatable $user = null){
         if (Auth::guest())
             return false;
 
         return static::getUser($user)->hasOneOfPermissions($perms);
     }
 
-    public static function hasPermissions($perms, Authenticatable $user = null){
+    public static function hasPermissions($perms, ?Authenticatable $user = null){
         if (Auth::guest())
             return false;
 
         return static::getUser($user)->hasPermissions($perms);
     }
 
-    public static function hasRole($role, Authenticatable $user = null){
+    public static function hasRole($role, ?Authenticatable $user = null){
         if (Auth::guest())
             return false;
 
         return static::getUser($user)->hasRole($role);
     }
 
-    public static function hasOneOfRoles($roles, Authenticatable $user = null){
+    public static function hasOneOfRoles($roles, ?Authenticatable $user = null){
         if (Auth::guest())
             return false;
 
         return static::getUser($user)->hasOneOfRoles($roles);
     }
 
-    public static function hasRoles($roles, Authenticatable $user = null){
+    public static function hasRoles($roles, ?Authenticatable $user = null){
         if (Auth::guest())
             return false;
 
